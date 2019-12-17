@@ -4,6 +4,7 @@ date:  2019-12-16 20:26:01
 tags: mysql 
 ---
 
+[参考文章链接](https://juejin.im/post/5cee01c0f265da1bca51bdaf)
 ## mysql服务搭建
 
 ### 前置准备
@@ -167,4 +168,4 @@ flush privileges;
 
 ```
 
-[原文章位置](https://juejin.im/post/5cee01c0f265da1bca51bdaf)
+
