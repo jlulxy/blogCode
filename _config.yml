@@ -101,3 +101,7 @@ deploy:
   type: git
   repo: https://github.com/jlulxy/jlulxy.github.io.git
   branch: master
+
+#flowChart
+flowchart:
+   optiosn: drawSVG
