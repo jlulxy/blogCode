@@ -1,5 +1,5 @@
 ---
-title: mysqll聚簇索引
+title: mysql聚簇索引
 date: 2020-01-01 14:29:19
 tags: [mysql,索引]
 ---
