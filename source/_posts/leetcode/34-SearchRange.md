@@ -27,7 +27,9 @@ Output: [-1,-1]
 ```
 
 ### 方法1
-分别找到最左端和最右端
+分别找到最左端和最右端,正常二分查找找到值直接返回，这里我们只需要对=情况区分处理，
+找最左的时候如果发现目标相等，移动右指针，是左右想相等的情况逼近最左值
+找右的时候正好相反
 ```bash
 func searchRange(nums []int, target int) []int {
 	left :=binaryLeftSerach(nums,target)
@@ -41,14 +43,14 @@ func binaryLeftSerach(nums[]int ,target int ) int {
 		return -1
 	}
 	right,left,mid := lenN,0,0
+	//开区间[0,n) 左闭右开所以左边要+1 右边不处理，相等的时候右边动往地位走，left和right一点点逼近最左值，
+	// 极限条件是left=lenN才能退出循环，所以判断下极限条件 当然如果right=lenN-1可不用判断
 	for left < right {
 		mid = (left +right) /2
-		if nums[mid] == target{
+		if nums[mid] < target{
+			left = mid+1
+		}else{
 			right = mid
-		}else if nums[mid] >target{
-			right = mid
-		}else if nums[mid] < target{
-			left = mid + 1
 		}
 	}
 	if left == lenN{
@@ -66,13 +68,22 @@ func binaryRightSerach(nums[]int ,target int ) int {
 		return -1
 	}
 	right,left,mid := lenN,0,0
+	//开区间[0,n) 左闭右开所以左边要+1 右边不处理，相等的时候左边动往高位走，left和right一点点逼近最有右值，
+	// 极限条件是left=lenN才能退出循环，所以判断下极限条件 当然如果right=lenN-1可不用判断
 	for left < right {
 		mid = (left +right) /2
+		/*
 		if nums[mid] == target{
 			left = mid + 1
 		}else if nums[mid] > target{
 			right = mid
 		}else if nums[mid] < target{
+			left = mid + 1
+		}
+		*/
+		if nums[mid] > target{
+			right = mid
+		} else{
 			left = mid + 1
 		}
 	}
@@ -83,5 +94,42 @@ func binaryRightSerach(nums[]int ,target int ) int {
 		return right-1
 	}
 	return  -1
+}
+```
+
+### 放在一个函数方法
+
+```bash
+func searchRangeV2(nums []int, target int) []int {
+	l, r := 0, len(nums)-1
+	if r < 0 {
+		return []int{-1, -1}
+	}
+	//找左边界，所以右边界=或>target都收缩右边界，当l=r的时候就是左边界
+	for l < r {
+		mid := (l + r) / 2
+		if nums[mid] < target {
+			l = mid + 1
+		} else {
+			r = mid
+		}
+	}
+	res1 := l
+	l, r = 0, len(nums)-1
+	for l < r {
+		mid := (l+r)/2 + 1
+		if nums[mid] > target {
+			r = mid - 1
+		} else {
+			l = mid
+		}
+		fmt.Println(l, r)
+	}
+	res2 := l
+	if nums[res1] != target {
+		return []int{-1, -1}
+	} else {
+		return []int{res1, res2}
+	}
 }
 ```
