@@ -3,7 +3,7 @@ title: workPool实现
 date: 2020-01-03 19:07:12
 tags: [goalng,workpool]
 ---
-### 随手写le个workpool放上来
+### 随手写了个workpool放上来
 
 ```
 package taskPool
